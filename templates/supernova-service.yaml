@@ -4,6 +4,14 @@ metadata:
   name: {{ include "supernova.fullname" . }}
   labels:
 {{ include "supernova.labels" . | indent 4 }}
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind: Mapping
+      name: supernova-mapping
+      prefix: /supernova/
+      service: {{ include "supernova.fullname" . }}:{{ .Values.service.port }}
 spec:
   type: {{ .Values.service.type }}
   ports:

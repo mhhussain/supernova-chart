@@ -43,3 +43,11 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
+
+{{/*
+Fullname for mongo release app
+*/}}
+{{- define "mongo.fullname" -}}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-mongo" .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
